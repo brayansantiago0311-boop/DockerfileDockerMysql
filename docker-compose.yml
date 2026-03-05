@@ -1,0 +1,27 @@
+services:
+  app:
+    build: ./src
+    container_name: hola_app
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: rootpass
+      DB_NAME: appdb
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.4
+    container_name: hola_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: appdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
